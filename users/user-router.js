@@ -1,0 +1,16 @@
+const db = require('../database/dbConfig');
+
+const router = require('express').Router();
+
+const Users = require('../users/user-model');
+const restricted = require('../auth/authenticate-middleware');
+
+router.get('/', restricted, (req, res) => {
+  Users.find()
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => res.send(err));
+});
+
+module.exports = router;
